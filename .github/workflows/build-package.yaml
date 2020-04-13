@@ -1,0 +1,28 @@
+name: Build Helm package and repo
+
+on:
+  push:
+    branches: 
+      - master
+  pull_request:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build package and generate index
+        run: |
+          docker run -ti --rm -v $(pwd):/apps -v ~/.helm:/root/.helm alpine/helm:2.16.3 package kong
+          docker run -ti --rm -v $(pwd):/apps -v ~/.helm:/root/.helm alpine/helm:2.16.3 repo index --url https://dspn.github.io/kong-chart/ .
+      - name: Publish generated resources
+        run: |
+          git status
+          git add .
+          git config --global user.email "christopher.bradford@datastax.com"
+          git config --global user.name "GitHub Actions"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git commit -m "Generated updated package and index"
+          git push origin $BRANCH
