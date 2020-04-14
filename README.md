@@ -17,8 +17,7 @@ ASTRA_USERNAME="your_username"
 ASTRA_PASSWORD="your_password"
 
 helm repo add dspn-kong https://dspn.github.io/kong-charts/
-helm install kong -n kong \
-  --repo dspn-kong \
+helm install dspn-kong/kong -n kong \
   --namespace kong \
   --set env.database=cassandra \
   --set env.cassandra_contact_points=$ASTRA_PROXY_URL \
@@ -38,12 +37,24 @@ helm install kong -n kong \
   --set admin.http.enabled=true
 ```
 
+Note this will fail as the secrets can not be created as part of a remote chart. Run the following commands to push updated config maps and recycle the pods.
+
+```bash
+# Create an updated config map with files from the secure-connect directory
+kubectl create configmap -n kong kong-cassandra-cm --from-file secure-connect/ -o yaml --dry-run | kubectl replace -f -
+
+# Rerun migrations, note requires jq application
+kubectl get job -n kong kong-kong-init-migrations -o json | jq 'del(.spec.selector)' | jq 'del(.spec.template.metadata.labels)' | kubectl replace --force -f -
+
+# Redeploy all pods
+kubectl get deployment -n kong kong-kong -o yaml | kubectl replace -f - 
+```
+
 ### Validate Installation
 
 ```bash
-# Verify pods
+# Verify pods, note press Ctrl+C to exit
 watch kubectl get pods -n kong
-# Press Ctrl+C to exit
 
 # Kong Admin test
 kubectl port-forward -n kong svc/kong-kong-admin 8001:8001 & # Wait a second while the port forwarding comes online
