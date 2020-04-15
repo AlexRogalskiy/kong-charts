@@ -3,9 +3,9 @@ entries:
   kong:
   - apiVersion: v1
     appVersion: "2"
-    created: "2020-04-15T21:34:12.444336655Z"
+    created: "2020-04-15T21:41:30.144384679Z"
     description: The Cloud-Native Ingress and API-management
-    digest: e6b4840e6186c97caac76db3e4f8e439094ee03abaf620621e36fffd5b27689b
+    digest: a527fb603521599868d1b36155a50ca8c55a2bf32fcf898679f84a02d506ffea
     engine: gotpl
     home: https://konghq.com/
     icon: https://s3.amazonaws.com/downloads.kong/universe/assets/icon-kong-inc-large.png
@@ -16,6 +16,6 @@ entries:
       name: rainest
     name: kong
     urls:
-    - https://dspn.github.io/kong-charts/kong-1.4.1.tgz
+    - https://datastax-examples.github.io/kong-charts/kong-1.4.1.tgz
     version: 1.4.1
-generated: "2020-04-15T21:34:12.442823356Z"
+generated: "2020-04-15T21:41:30.14109338Z"
