@@ -1,5 +1,3 @@
-# Kong Charts
-
 This repository contains **demo** [Helm](https://helm.sh/) charts for deploying Kong on Kubernetes backed by Cassandra running within DataStax Astra.
 
 GitHub Actions handle building out the packages and publishing them to Github Pages. Work is underway to upstream the changes to Kong and the charts in to the official [Kong](https://github.com/kong/kong) repositories.
@@ -49,7 +47,7 @@ watch kubectl get pods -n kong
 
 # Kong Admin test
 kubectl port-forward -n kong svc/kong-kong-admin 8001:8001 & # Wait a second while the port forwarding comes online
-curl  http://localhost:8001/ | jq .
+curl  http://localhost:8001/
 
 ## Kong Behavior test
 curl -i -X POST \
