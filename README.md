@@ -34,7 +34,7 @@ helm install datastax-examples-kong/kong -n kong \
   --set env.cassandra_password=$ASTRA_PASSWORD \
   --set env.cassandra_consistency=LOCAL_QUORUM \
   --set image.repository=datastaxlabs/astra-kong \
-  --set image.tag=v1.0.0 \
+  --set image.tag=v2.0.2 \
   --set admin.enabled=true \
   --set admin.http.enabled=true
 ```
