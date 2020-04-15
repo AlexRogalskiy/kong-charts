@@ -16,6 +16,10 @@ ASTRA_KEYSPACE="your_keyspace"
 ASTRA_USERNAME="your_username"
 ASTRA_PASSWORD="your_password"
 
+# Create a namespace and config map with files from the secure-connect directory
+kubectl create namespace kong
+kubectl create configmap -n kong kong-cassandra-cm --from-file secure-connect/
+
 helm repo add dspn-kong https://dspn.github.io/kong-charts/
 helm install dspn-kong/kong -n kong \
   --namespace kong \
@@ -35,19 +39,6 @@ helm install dspn-kong/kong -n kong \
   --set image.tag=v1.0.0 \
   --set admin.enabled=true \
   --set admin.http.enabled=true
-```
-
-Note this will fail as the secrets can not be created as part of a remote chart. Run the following commands to push updated config maps and recycle the pods.
-
-```bash
-# Create an updated config map with files from the secure-connect directory
-kubectl create configmap -n kong kong-cassandra-cm --from-file secure-connect/ -o yaml --dry-run | kubectl replace -f -
-
-# Rerun migrations, note requires jq application
-kubectl get job -n kong kong-kong-init-migrations -o json | jq 'del(.spec.selector)' | jq 'del(.spec.template.metadata.labels)' | kubectl replace --force -f -
-
-# Redeploy all pods
-kubectl get deployment -n kong kong-kong -o yaml | kubectl replace -f - 
 ```
 
 ### Validate Installation
