@@ -20,8 +20,8 @@ ASTRA_PASSWORD="your_password"
 kubectl create namespace kong
 kubectl create configmap -n kong kong-cassandra-cm --from-file secure-connect/
 
-helm repo add dspn-kong https://dspn.github.io/kong-charts/
-helm install dspn-kong/kong -n kong \
+helm repo add datastax-examples-kong https://datastax-examples.github.io/kong-charts/
+helm install datastax-examples-kong/kong -n kong \
   --namespace kong \
   --set env.database=cassandra \
   --set env.cassandra_contact_points=$ASTRA_PROXY_URL \

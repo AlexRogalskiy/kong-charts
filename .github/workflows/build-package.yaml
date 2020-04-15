@@ -16,7 +16,7 @@ jobs:
       - name: Build package and generate index
         run: |
           docker run --rm -v $(pwd):/apps alpine/helm:2.16.3 package kong || :
-          docker run --rm -v $(pwd):/apps alpine/helm:2.16.3 repo index --url https://dspn.github.io/kong-charts/ . || :
+          docker run --rm -v $(pwd):/apps alpine/helm:2.16.3 repo index --url https://datastax-examples.github.io/kong-charts/ . || :
       - name: Publish generated resources
         run: |
           git status
