@@ -3,9 +3,9 @@ entries:
   kong:
   - apiVersion: v1
     appVersion: "2"
-    created: "2020-04-15T21:51:16.611142663Z"
+    created: "2020-04-15T21:59:46.927315088Z"
     description: The Cloud-Native Ingress and API-management
-    digest: 3f0e84113a7476c682f4db06176b119771eeafc605ac82d113d3664b21056cb9
+    digest: 126a97c6cbcf62d521390d5b76dd7341d8770df79f233a887d0c5628044e62e1
     engine: gotpl
     home: https://konghq.com/
     icon: https://s3.amazonaws.com/downloads.kong/universe/assets/icon-kong-inc-large.png
@@ -18,4 +18,4 @@ entries:
     urls:
     - https://datastax-examples.github.io/kong-charts/kong-1.4.1.tgz
     version: 1.4.1
-generated: "2020-04-15T21:51:16.609537244Z"
+generated: "2020-04-15T21:59:46.924064434Z"
